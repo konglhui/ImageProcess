@@ -12,7 +12,7 @@ ThresholdImage::~ThresholdImage()
 
 bool meanValueThreshold()
 {
-
+	return true;
 }
 
 

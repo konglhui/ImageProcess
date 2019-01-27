@@ -185,21 +185,20 @@ bool ImageProcess::threshold(const uchar& n_thre )
 	if (channel != 1)
 		return false;
 
-	uchar gray;
-	int pixelLength;
+	uchar gray[256];
+	int i;
+	for (i = 0; i < n_thre; ++i)
+		gray[i] = 0;
+	for (; i < 256; ++i)
+		gray[i] = 255;
+
+	uchar* lineData;
 	for (int i = 0; i < height; i++)
 	{
-		int length = i * width;
+		lineData = data + i * width;
 		for (int j = 0; j < width; j++)
 		{
-			pixelLength = length + j;
-			gray = data[pixelLength];
-			if (gray < n_thre)
-				gray = 0;
-			else
-				gray = 255;
-			data[pixelLength] = gray;
-
+			lineData[j] = gray[lineData[j]];
 		}
 	}
 	return true;
