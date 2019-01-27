@@ -114,6 +114,8 @@ namespace ImageView
         /// <returns></returns>
         [DllImport("ImageProcess.dll", CallingConvention = CallingConvention.StdCall)]
         public static extern int GenRotateImageInterface(IntPtr data, IntPtr outputData,  int width,  int height,  int channel,  int rotateX,  int rotateY,  double rotateAngle,  int mode);
+
+        //测试
     }
 
 }
