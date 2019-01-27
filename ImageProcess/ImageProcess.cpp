@@ -55,10 +55,6 @@ bool ImageProcess::genHist( double* histVec, const int& n)
 		for (int j = 0; j < width; ++j)
 		{
 			tmp_gray = data[heightLength + j];
-			//tmp_gray = ;
-			//if(n != 256)
-			//	 tmp_gray  /= d_divide;
-			//if (tep_val > n) tep_val = n;
 			histVec[tmp_gray] ++ ;
 		}
 		
@@ -70,6 +66,18 @@ bool ImageProcess::genHist( double* histVec, const int& n)
 		histVec[k] = histVec[k]/ square;
 	}
 	return true;
+}
+bool ImageProcess::genHist(int* histVec)
+{
+	uchar* lineData;
+	for (int i = 0; i < height; ++i)
+	{
+		lineData = data + i * width;
+		for (int j = 0; j < width; ++j)
+		{
+			histVec[lineData[j]] ++;
+		}
+	}
 }
 
 

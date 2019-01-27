@@ -1,5 +1,5 @@
 #pragma once
-
+#include <memory>
 #define  DLLEXPORT extern"C" _declspec(dllexport)
 #define IS_OK 1;
 #define IS_NG 0;
