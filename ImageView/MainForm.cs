@@ -12,6 +12,7 @@ using ImageView.SingleProcessUI;
 using System.Drawing.Imaging;
 using System.Diagnostics;
 using ImageView.SingleProcessUI.GeometricTrans;
+using ImageView.SingleProcessUI.EnhanceImage;
 namespace ImageView
 {
     public partial class MainForm : Form
@@ -20,11 +21,16 @@ namespace ImageView
         {
             InitializeComponent();
             pathName = "example.bmp";
-            winImage = (Bitmap)Image.FromFile(pathName);
-            if (winImage != null)
+            try
+            {
+                winImage = (Bitmap)Image.FromFile(pathName);
                 ShowImage(winImage);
-            else
+            }
+            catch 
+            {
                 MessageBox.Show("没有图像");
+            }
+                
         }
         //存储所有处理过的图像
         MyLinkedList imageList = new MyLinkedList();
@@ -466,6 +472,8 @@ namespace ImageView
             {
                 int n = Convert.ToInt32(ParamData.paramData["n"]);
                 Bitmap histImage = new Bitmap(n, 200, singlePixel);
+                histImage.Palette = ImageProcessCSharp.getGrayPalette();
+
                 ParamData.paramData.Clear();
                 if (GenHistImage(ref histImage, n))
                 {
@@ -817,14 +825,162 @@ namespace ImageView
 
         #endregion
 
+        /// <summary>
+        /// 图像移动 按键
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LevelMove_CLick(object sender, EventArgs e)
         {
+            if (JudegeImagePixelFormat())
+                return;
+            //IntPtr intPtr = new IntPtr();
+            LevelMoveImageForm levelMoveImageForm = new LevelMoveImageForm();
+            if (levelMoveImageForm.ShowDialog() == DialogResult.OK)
+            {
+                int x = Convert.ToInt32(ParamData.paramData["x"]);
+                int y = Convert.ToInt32(ParamData.paramData["y"]);
 
+                byte[] outData = new byte[winImage.Width * winImage.Height];
+
+                ParamData.paramData.Clear();
+                if (LevelMove(ref outData, x, y))
+                {
+                    Bitmap bitmap = ImageProcessCSharp.getBitmapByBytes(outData, winImage.Width, winImage.Height, 1);
+                    ShowImage(bitmap);
+                }
+                else
+                    ParamFalse();
+            }
         }
 
+        private bool LevelMove(ref byte[] outData, int x,int y)
+        {
+            int stride = new int();
+            byte[] srcData = ImageProcessCSharp.GetBGRValues(winImage, out stride);
+
+            IntPtr srcPtr = ImageProcessCSharp.getBytesPtr(srcData);
+            IntPtr outPtr = ImageProcessCSharp.getBytesPtr(outData);
+
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            int flag = DllInterFace.GenLevelMoveImageInterface(srcPtr, outPtr, winImage.Width, winImage.Height, 1, x, y);
+            watch.Stop();
+            runTime = watch.ElapsedMilliseconds.ToString();
+
+            if (flag == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 图像翻转 按键
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TurnOver_Click(object sender, EventArgs e)
         {
+            if (JudegeImagePixelFormat())
+                return;
 
+            TurnOverImageForm turnOverImageForm = new TurnOverImageForm();
+            if (turnOverImageForm.ShowDialog() == DialogResult.OK)
+            {
+                int mode = Convert.ToInt32(ParamData.paramData["mode"]);
+           
+                byte[] outData = new byte[winImage.Width * winImage.Height];
+
+                ParamData.paramData.Clear();
+                if (TurnOver(ref outData, mode))
+                {
+                    Bitmap bitmap = ImageProcessCSharp.getBitmapByBytes(outData, winImage.Width, winImage.Height, 1);
+                    ShowImage(bitmap);
+                }
+                else
+                    ParamFalse();
+            }
+        }
+
+        private bool TurnOver(ref byte[] outData, int mode)
+        {
+            int stride = new int();
+            byte[] srcData = ImageProcessCSharp.GetBGRValues(winImage, out stride);
+
+            IntPtr srcPtr = ImageProcessCSharp.getBytesPtr(srcData);
+            IntPtr outPtr = ImageProcessCSharp.getBytesPtr(outData);
+
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            int flag = DllInterFace.GenTurnOverImageInterface(srcPtr, outPtr, winImage.Width, winImage.Height, 1, mode);
+            watch.Stop();
+            runTime = watch.ElapsedMilliseconds.ToString();
+
+            if (flag == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 图像缩放 按键
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ZoomImage_Click(object sender, EventArgs e)
+        {
+            if (JudegeImagePixelFormat())
+                return;
+
+            ZoomImageForm zoomImageForm = new ZoomImageForm();
+            if (zoomImageForm.ShowDialog() == DialogResult.OK)
+            {
+                double ratio = ParamData.paramData["ratio"];
+                int mode = Convert.ToInt32(ParamData.paramData["mode"]);
+                int outWidth = Convert.ToInt32(winImage.Width * ratio);
+                int outHeight = Convert.ToInt32(winImage.Height * ratio);
+                byte[] outData = new byte[outWidth*outHeight];
+
+
+                ParamData.paramData.Clear();
+                if (ZoomImage(ref outData, outWidth,outHeight,ratio, mode))
+                {
+                    Bitmap bitmap = ImageProcessCSharp.getBitmapByBytes(outData, outWidth, outHeight, 1);
+                    ShowImage(bitmap);
+                }
+                else
+                    ParamFalse();
+            }
+        }
+        
+        /// <summary>
+        /// 图像缩放
+        /// </summary>
+        /// <param name="bitmap"></param>
+        /// <param name="ratio"></param>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        private bool ZoomImage(ref byte[] outData,int outWidth, int outHeight, double ratio,int mode)
+        {
+            int stride = new int();
+            byte[] srcData = ImageProcessCSharp.GetBGRValues(winImage, out stride);
+
+            IntPtr srcPtr = ImageProcessCSharp.getBytesPtr(srcData);
+            IntPtr outPtr = ImageProcessCSharp.getBytesPtr(outData);
+
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            int flag = DllInterFace.GenZoomImageInterface(srcPtr,  winImage.Width, winImage.Height, 1, outPtr, outWidth, outHeight, 1, ratio, mode);
+            watch.Stop();
+            runTime = watch.ElapsedMilliseconds.ToString();
+
+            if (flag == 1)
+            {
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -844,12 +1000,12 @@ namespace ImageView
                 int x = Convert.ToInt32(ParamData.paramData["pointx"]);
                 int y = Convert.ToInt32(ParamData.paramData["pointy"]);
                 int mode = Convert.ToInt32(ParamData.paramData["mode"]);
-                Bitmap histImage = (Bitmap)winImage.Clone();
+                byte[] outData = new byte[winImage.Width * winImage.Height];
                 ParamData.paramData.Clear();
-                if (GenRotateImage(ref histImage, angle,x,y,mode))
+                if (GenRotateImage(ref outData, angle,x,y,mode))
                 {
-
-                    ShowImage(histImage);
+                    Bitmap bitmap = ImageProcessCSharp.getBitmapByBytes(outData, winImage.Width, winImage.Height, 1);
+                    ShowImage(bitmap);
                 }
                 else
                     ParamFalse();
@@ -857,24 +1013,113 @@ namespace ImageView
         }
 
         /// <summary>
-        /// 生成直方图
+        /// 生成旋转图像
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        private bool GenRotateImage(ref Bitmap histImage, double angle,int x,int y,int mode)
+        private bool GenRotateImage(ref byte[] outData, double angle,int x,int y,int mode)
         {
-            BitmapData srcData = winImage.LockBits(new Rectangle(0, 0, winImage.Width, winImage.Height), ImageLockMode.ReadWrite, singlePixel);
-            IntPtr srcPtr = srcData.Scan0;
+            int stride = new int();
+            byte[] srcData = ImageProcessCSharp.GetBGRValues(winImage, out stride);
 
-            BitmapData histData = histImage.LockBits(new Rectangle(0, 0, histImage.Width, histImage.Height), ImageLockMode.ReadWrite, singlePixel);
-            IntPtr histPtr = histData.Scan0;
+            IntPtr srcPtr = ImageProcessCSharp.getBytesPtr(srcData);
+            IntPtr outPtr = ImageProcessCSharp.getBytesPtr(outData);
+
             Stopwatch watch = new Stopwatch();
             watch.Start();
-            int flag = DllInterFace.GenRotateImageInterface(srcPtr, histPtr, winImage.Width, winImage.Height, 1, x, y, angle, mode);
+            int flag = DllInterFace.GenRotateImageInterface(srcPtr, outPtr, winImage.Width, winImage.Height, 1, x, y, angle, mode);
             watch.Stop();
             runTime = watch.ElapsedMilliseconds.ToString();
-            winImage.UnlockBits(srcData);
-            histImage.UnlockBits(histData);
+
+            if (flag == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 图像转置 按键
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TransPosition_Click(object sender, EventArgs e)
+        {
+            if (JudegeImagePixelFormat())
+                return;
+
+            byte[] outData = new byte[winImage.Width * winImage.Height];
+            if (GenTransPositionImage(ref outData))
+            {
+                Bitmap bitmap = ImageProcessCSharp.getBitmapByBytes(outData, winImage.Height, winImage.Width, 1);
+                ShowImage(bitmap);
+            }
+            else
+                ParamFalse();
+        }
+
+        /// <summary>
+        /// 图像转置 
+        /// </summary>
+        /// <param name="rotateImage"></param>
+        /// <returns></returns>
+        private bool GenTransPositionImage(ref byte[] outData)
+        {
+            int stride = new int();
+            byte[] srcData = ImageProcessCSharp.GetBGRValues(winImage,out stride);
+
+            IntPtr srcPtr = ImageProcessCSharp.getBytesPtr(srcData);
+            IntPtr outPtr = ImageProcessCSharp.getBytesPtr(outData);
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            int flag = DllInterFace.GenTransPositionImageInterface(srcPtr, outPtr, winImage.Width, winImage.Height, 1);
+            watch.Stop();
+            runTime = watch.ElapsedMilliseconds.ToString();
+
+            if (flag == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void BlurImage_Click(object sender, EventArgs e)
+        {
+            if (JudegeImagePixelFormat())
+                return;
+
+            BlurImage blurImage = new BlurImage();
+            if(blurImage.ShowDialog() == DialogResult.OK)
+            {
+                int size = Convert.ToInt32(ParamData.paramData["size"]);
+                ParamData.paramData.Clear();
+                byte[] outData = new byte[winImage.Width * winImage.Height];
+
+                if (GenBlurImage(ref outData,size))
+                {
+
+                    Bitmap bitmap = ImageProcessCSharp.getBitmapByBytes(outData, winImage.Width, winImage.Height, 1);
+                    ShowImage(bitmap);
+                }
+                else
+                    ParamFalse();
+            }
+
+        }
+
+        private bool GenBlurImage(ref byte[] outData,int size)
+        {
+            int stride = new int();
+            byte[] srcData = ImageProcessCSharp.GetBGRValues(winImage, out stride);
+
+            IntPtr srcPtr = ImageProcessCSharp.getBytesPtr(srcData);
+            IntPtr outPtr = ImageProcessCSharp.getBytesPtr(outData);
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            int flag = DllInterFace.GenBlurImageInterface(srcPtr, outPtr, winImage.Width, winImage.Height, 1,size);
+            watch.Stop();
+            runTime = watch.ElapsedMilliseconds.ToString();
+
             if (flag == 1)
             {
                 return true;

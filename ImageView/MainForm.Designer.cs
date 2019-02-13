@@ -45,6 +45,14 @@ namespace ImageView
             this.二值化ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.分段线性变换ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.直方图均衡化ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.图像几何变换ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.平移ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.翻转ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.转置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.缩放ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.旋转ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.仿射ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.透视ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listView1 = new System.Windows.Forms.ListView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -54,14 +62,8 @@ namespace ImageView
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.图像几何变换ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.平移ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.翻转ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.转置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.缩放ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.旋转ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.仿射ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.透视ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.图像增强ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.均值滤波ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -74,7 +76,8 @@ namespace ImageView
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.开始ToolStripMenuItem,
             this.图像点运算ToolStripMenuItem,
-            this.图像几何变换ToolStripMenuItem});
+            this.图像几何变换ToolStripMenuItem,
+            this.图像增强ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 25);
@@ -145,51 +148,112 @@ namespace ImageView
             // 灰度直方图ToolStripMenuItem
             // 
             this.灰度直方图ToolStripMenuItem.Name = "灰度直方图ToolStripMenuItem";
-            this.灰度直方图ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.灰度直方图ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.灰度直方图ToolStripMenuItem.Text = "灰度直方图";
             this.灰度直方图ToolStripMenuItem.Click += new System.EventHandler(this.GenHistImage_Click);
             // 
             // 线性变换ToolStripMenuItem
             // 
             this.线性变换ToolStripMenuItem.Name = "线性变换ToolStripMenuItem";
-            this.线性变换ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.线性变换ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.线性变换ToolStripMenuItem.Text = "线性变换";
             this.线性变换ToolStripMenuItem.Click += new System.EventHandler(this.LineTrans_Click);
             // 
             // gamm变换ToolStripMenuItem
             // 
             this.gamm变换ToolStripMenuItem.Name = "gamm变换ToolStripMenuItem";
-            this.gamm变换ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gamm变换ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.gamm变换ToolStripMenuItem.Text = "gamm变换";
             this.gamm变换ToolStripMenuItem.Click += new System.EventHandler(this.GammTrans_Click);
             // 
             // log变换ToolStripMenuItem
             // 
             this.log变换ToolStripMenuItem.Name = "log变换ToolStripMenuItem";
-            this.log变换ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.log变换ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.log变换ToolStripMenuItem.Text = "log变换";
             this.log变换ToolStripMenuItem.Click += new System.EventHandler(this.LogTrans_Click);
             // 
             // 二值化ToolStripMenuItem
             // 
             this.二值化ToolStripMenuItem.Name = "二值化ToolStripMenuItem";
-            this.二值化ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.二值化ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.二值化ToolStripMenuItem.Text = "二值化";
             this.二值化ToolStripMenuItem.Click += new System.EventHandler(this.Threshold_Click);
             // 
             // 分段线性变换ToolStripMenuItem
             // 
             this.分段线性变换ToolStripMenuItem.Name = "分段线性变换ToolStripMenuItem";
-            this.分段线性变换ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.分段线性变换ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.分段线性变换ToolStripMenuItem.Text = "分段线性变换";
             this.分段线性变换ToolStripMenuItem.Click += new System.EventHandler(this.SegmentTrans_Click);
             // 
             // 直方图均衡化ToolStripMenuItem
             // 
             this.直方图均衡化ToolStripMenuItem.Name = "直方图均衡化ToolStripMenuItem";
-            this.直方图均衡化ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.直方图均衡化ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.直方图均衡化ToolStripMenuItem.Text = "直方图均衡化";
             this.直方图均衡化ToolStripMenuItem.Click += new System.EventHandler(this.HistEqual_Click);
+            // 
+            // 图像几何变换ToolStripMenuItem
+            // 
+            this.图像几何变换ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.平移ToolStripMenuItem,
+            this.翻转ToolStripMenuItem,
+            this.转置ToolStripMenuItem,
+            this.缩放ToolStripMenuItem,
+            this.旋转ToolStripMenuItem,
+            this.仿射ToolStripMenuItem,
+            this.透视ToolStripMenuItem});
+            this.图像几何变换ToolStripMenuItem.Name = "图像几何变换ToolStripMenuItem";
+            this.图像几何变换ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.图像几何变换ToolStripMenuItem.Text = "几何变换";
+            // 
+            // 平移ToolStripMenuItem
+            // 
+            this.平移ToolStripMenuItem.Name = "平移ToolStripMenuItem";
+            this.平移ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.平移ToolStripMenuItem.Text = "平移";
+            this.平移ToolStripMenuItem.Click += new System.EventHandler(this.LevelMove_CLick);
+            // 
+            // 翻转ToolStripMenuItem
+            // 
+            this.翻转ToolStripMenuItem.Name = "翻转ToolStripMenuItem";
+            this.翻转ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.翻转ToolStripMenuItem.Text = "翻转";
+            this.翻转ToolStripMenuItem.Click += new System.EventHandler(this.TurnOver_Click);
+            // 
+            // 转置ToolStripMenuItem
+            // 
+            this.转置ToolStripMenuItem.Name = "转置ToolStripMenuItem";
+            this.转置ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.转置ToolStripMenuItem.Text = "转置";
+            this.转置ToolStripMenuItem.Click += new System.EventHandler(this.TransPosition_Click);
+            // 
+            // 缩放ToolStripMenuItem
+            // 
+            this.缩放ToolStripMenuItem.Name = "缩放ToolStripMenuItem";
+            this.缩放ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.缩放ToolStripMenuItem.Text = "缩放";
+            this.缩放ToolStripMenuItem.Click += new System.EventHandler(this.ZoomImage_Click);
+            // 
+            // 旋转ToolStripMenuItem
+            // 
+            this.旋转ToolStripMenuItem.Name = "旋转ToolStripMenuItem";
+            this.旋转ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.旋转ToolStripMenuItem.Text = "旋转";
+            this.旋转ToolStripMenuItem.Click += new System.EventHandler(this.Rotate_Click);
+            // 
+            // 仿射ToolStripMenuItem
+            // 
+            this.仿射ToolStripMenuItem.Name = "仿射ToolStripMenuItem";
+            this.仿射ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.仿射ToolStripMenuItem.Text = "仿射";
+            // 
+            // 透视ToolStripMenuItem
+            // 
+            this.透视ToolStripMenuItem.Name = "透视ToolStripMenuItem";
+            this.透视ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.透视ToolStripMenuItem.Text = "透视";
             // 
             // listView1
             // 
@@ -282,64 +346,20 @@ namespace ImageView
             this.label1.TabIndex = 0;
             this.label1.Text = "label1";
             // 
-            // 图像几何变换ToolStripMenuItem
+            // 图像增强ToolStripMenuItem
             // 
-            this.图像几何变换ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.平移ToolStripMenuItem,
-            this.翻转ToolStripMenuItem,
-            this.转置ToolStripMenuItem,
-            this.缩放ToolStripMenuItem,
-            this.旋转ToolStripMenuItem,
-            this.仿射ToolStripMenuItem,
-            this.透视ToolStripMenuItem});
-            this.图像几何变换ToolStripMenuItem.Name = "图像几何变换ToolStripMenuItem";
-            this.图像几何变换ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.图像几何变换ToolStripMenuItem.Text = "几何变换";
+            this.图像增强ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.均值滤波ToolStripMenuItem});
+            this.图像增强ToolStripMenuItem.Name = "图像增强ToolStripMenuItem";
+            this.图像增强ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.图像增强ToolStripMenuItem.Text = "图像增强";
             // 
-            // 平移ToolStripMenuItem
+            // 均值滤波ToolStripMenuItem
             // 
-            this.平移ToolStripMenuItem.Name = "平移ToolStripMenuItem";
-            this.平移ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.平移ToolStripMenuItem.Text = "平移";
-            this.平移ToolStripMenuItem.Click += new System.EventHandler(this.LevelMove_CLick);
-            // 
-            // 翻转ToolStripMenuItem
-            // 
-            this.翻转ToolStripMenuItem.Name = "翻转ToolStripMenuItem";
-            this.翻转ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.翻转ToolStripMenuItem.Text = "翻转";
-            this.翻转ToolStripMenuItem.Click += new System.EventHandler(this.TurnOver_Click);
-            // 
-            // 转置ToolStripMenuItem
-            // 
-            this.转置ToolStripMenuItem.Name = "转置ToolStripMenuItem";
-            this.转置ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.转置ToolStripMenuItem.Text = "转置";
-            // 
-            // 缩放ToolStripMenuItem
-            // 
-            this.缩放ToolStripMenuItem.Name = "缩放ToolStripMenuItem";
-            this.缩放ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.缩放ToolStripMenuItem.Text = "缩放";
-            // 
-            // 旋转ToolStripMenuItem
-            // 
-            this.旋转ToolStripMenuItem.Name = "旋转ToolStripMenuItem";
-            this.旋转ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.旋转ToolStripMenuItem.Text = "旋转";
-            this.旋转ToolStripMenuItem.Click += new System.EventHandler(this.Rotate_Click);
-            // 
-            // 仿射ToolStripMenuItem
-            // 
-            this.仿射ToolStripMenuItem.Name = "仿射ToolStripMenuItem";
-            this.仿射ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.仿射ToolStripMenuItem.Text = "仿射";
-            // 
-            // 透视ToolStripMenuItem
-            // 
-            this.透视ToolStripMenuItem.Name = "透视ToolStripMenuItem";
-            this.透视ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.透视ToolStripMenuItem.Text = "透视";
+            this.均值滤波ToolStripMenuItem.Name = "均值滤波ToolStripMenuItem";
+            this.均值滤波ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.均值滤波ToolStripMenuItem.Text = "均值滤波";
+            this.均值滤波ToolStripMenuItem.Click += new System.EventHandler(this.BlurImage_Click);
             // 
             // MainForm
             // 
@@ -399,6 +419,8 @@ namespace ImageView
         private System.Windows.Forms.ToolStripMenuItem 旋转ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 仿射ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 透视ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 图像增强ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 均值滤波ToolStripMenuItem;
     }
 }
 

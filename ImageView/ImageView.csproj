@@ -40,14 +40,14 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\bin\release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
@@ -86,11 +86,35 @@
     <Compile Include="ImageTranslation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleProcessUI\EnhanceImage\BlurImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SingleProcessUI\EnhanceImage\BlurImage.Designer.cs">
+      <DependentUpon>BlurImage.cs</DependentUpon>
+    </Compile>
     <Compile Include="SingleProcessUI\GeometricTrans\RotateImageForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SingleProcessUI\GeometricTrans\RotateImageForm.Designer.cs">
       <DependentUpon>RotateImageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SingleProcessUI\GeometricTrans\TurnOverImageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SingleProcessUI\GeometricTrans\TurnOverImageForm.Designer.cs">
+      <DependentUpon>TurnOverImageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SingleProcessUI\GeometricTrans\ZoomImageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SingleProcessUI\GeometricTrans\ZoomImageForm.Designer.cs">
+      <DependentUpon>ZoomImageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SingleProcessUI\GeometricTrans\LevelMoveImageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SingleProcessUI\GeometricTrans\LevelMoveImageForm.Designer.cs">
+      <DependentUpon>LevelMoveImageForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SingleProcessUI\PointProcess\GenSegmentTransForm.cs">
       <SubType>Form</SubType>
@@ -141,8 +165,20 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SingleProcessUI\EnhanceImage\BlurImage.resx">
+      <DependentUpon>BlurImage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SingleProcessUI\GeometricTrans\RotateImageForm.resx">
       <DependentUpon>RotateImageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SingleProcessUI\GeometricTrans\TurnOverImageForm.resx">
+      <DependentUpon>TurnOverImageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SingleProcessUI\GeometricTrans\ZoomImageForm.resx">
+      <DependentUpon>ZoomImageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SingleProcessUI\GeometricTrans\LevelMoveImageForm.resx">
+      <DependentUpon>LevelMoveImageForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SingleProcessUI\PointProcess\GenSegmentTransForm.resx">
       <DependentUpon>GenSegmentTransForm.cs</DependentUpon>

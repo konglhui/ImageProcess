@@ -10,18 +10,16 @@ using System.Windows.Forms;
 
 namespace ImageView.SingleProcessUI.GeometricTrans
 {
-    public partial class RotateImageForm : Form
+    public partial class ZoomImageForm : Form
     {
-        public RotateImageForm()
+        public ZoomImageForm()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ParamData.paramData["angle"] = Convert.ToDouble(numericUpDown1.Value);
-            ParamData.paramData["pointx"] = Convert.ToDouble(numericUpDown2.Value);
-            ParamData.paramData["pointy"] = Convert.ToDouble(numericUpDown3.Value);
+            ParamData.paramData["ratio"] = Convert.ToDouble(numericUpDown3.Value);
             if (comboBox1.Text == "双线性插值")
             {
                 ParamData.paramData["mode"] = 0;
@@ -32,6 +30,21 @@ namespace ImageView.SingleProcessUI.GeometricTrans
             }
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

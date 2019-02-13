@@ -10,23 +10,20 @@ using System.Windows.Forms;
 
 namespace ImageView.SingleProcessUI.GeometricTrans
 {
-    public partial class RotateImageForm : Form
+    public partial class TurnOverImageForm : Form
     {
-        public RotateImageForm()
+        public TurnOverImageForm()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ParamData.paramData["angle"] = Convert.ToDouble(numericUpDown1.Value);
-            ParamData.paramData["pointx"] = Convert.ToDouble(numericUpDown2.Value);
-            ParamData.paramData["pointy"] = Convert.ToDouble(numericUpDown3.Value);
-            if (comboBox1.Text == "双线性插值")
+            if (comboBox1.Text == "水平方向")
             {
                 ParamData.paramData["mode"] = 0;
             }
-            else
+            else if(comboBox1.Text == "竖直方向")
             {
                 ParamData.paramData["mode"] = 1;
             }
