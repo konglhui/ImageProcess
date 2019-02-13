@@ -1,7 +1,8 @@
 #pragma once
 #include "DataStruct.h"
-#include "Image.h"
 #include "CommonAlgorithm.h"
+#include "Image.h"
+
 class ImageProcess :public Image
 {
 public:
@@ -16,12 +17,11 @@ public:
 	}
 	
 	//图像扩充
-	static bool extensionImage(int size,const Image &image, Image &output_image);
+	static bool ExtensionImage(int size,const Image &image, Image &output_image);
 
 	//生成灰度直方图数据
 	bool genHist(double* histVec, const int & n);
-	bool genHist(int*  histVec);
-
+	
 	//生成直方图图像
 	bool genHistImage(Image &new_image, const int &n);
 
@@ -56,7 +56,7 @@ public:
 	static bool zoomImage(Image&img, Image&output_img, const double& ratio, const int& mode);
 
 	//图像旋转,mode == 0 双线性差值，其他为最近邻
-	static bool rotateImage(const Image&img, Image&output_img, const double& angle,const Point & rotatePoint ,const int& mode);
+	bool rotateImage( Image&output_img, const double& angle,const Point & rotatePoint ,const int& mode);
 
 	//仿射变换
 	static bool affineTransform(const Image&img, Image&output_img, const std::vector<Point>& src_points, const std::vector<Point>&dst_points, const int& mode);

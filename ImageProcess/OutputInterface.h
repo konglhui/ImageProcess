@@ -2,6 +2,8 @@
 #include"DataStruct.h"
 #include "Image.h"
 #include "ImageProcess.h"
+#include "EnhanceImage.h"
+
 
 //Éú³É»Ò¶ÈÖ±·½Í¼
 DLLEXPORT
@@ -34,3 +36,23 @@ int _stdcall GenHistEqualInterface(uchar * data, const int width, const int heig
 ///Í¼ÏñÐý×ª
 DLLEXPORT
 int _stdcall GenRotateImageInterface(uchar*data, uchar*outputData, const int width, const int height, const int channel, const int rotateX, const int rotateY, const double rotateAngle, const int mode);
+
+//Í¼ÏñËõ·Å
+DLLEXPORT
+int _stdcall GenZoomImageInterface(uchar * data, const int width, const int height, const int channel, uchar*outData, int outWidth, int outHeight, int outChannel, double ratio, int mode);
+
+///Í¼ÏñÆ½ÒÆ
+DLLEXPORT
+int _stdcall GenLevelMoveImageInterface(uchar*data, uchar*outputData, const int width, const int height, const int channel, const int x, const int y);
+
+///Í¼Ïñ·­×ª
+DLLEXPORT
+int _stdcall GenTurnOverImageInterface(uchar*data, uchar*outputData, const int width, const int height, const int channel,const int mode);
+
+///Í¼Ïñ×ªÖÃ
+DLLEXPORT
+int _stdcall GenTransPositionImageInterface(uchar*data, uchar*outputData, const int width, const int height, const int channel);
+
+//Í¼ÏñÂË²¨
+DLLEXPORT
+int _stdcall GenBlurImageInterface(uchar*data, uchar*outputData, const int width, const int height, const int channel,const int size);

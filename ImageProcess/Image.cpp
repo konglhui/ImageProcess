@@ -27,16 +27,32 @@ void Image::cleanUp()
 	//delete[] data;
 }
 
-inline uchar Image::interpBilinearGray(const int& length, const int& x,const int &x1,const int& y1,const int & multiple,const Image &img)
+ uchar Image::interpBilinearGray(const int& length, const int& x,const int &x1,const int& y1,const int & multiple,const Image &img)
 {
 	int length_width = length + img.width;
+	int f12;
+	int f34;
+	if (y1 < 1)
+	{
+		f12 = img.data[length];
+		if (x1 < 1)
+		
+			return f12;
+		else
+			f34 = img.data[length + 1];
+	}
+	else
+	{
+		uchar f2 = img.data[length_width];
+		uchar f1 = img.data[length];
+		uchar f3 = img.data[length + 1];
+		uchar f4 = img.data[length_width + 1];
+		f34 = (f3 + ((f4 - f3) * y1 >> multiple));
+		f12 = (f1 + ((f2 - f1) * y1 >> multiple));
+	}
+
 	//四个连接点
-	uchar f1 = img.data[length];
-	uchar f3 = img.data[length + 1];
-	uchar f2 = img.data[length_width];
-	uchar f4 = img.data[length_width + 1];
-	int f12 = (f1 + ((f2 - f1) * y1 >> multiple)) ;
-	int f34 = (f3 + ((f4 - f3) * y1 >> multiple));
+
 	return  uchar((f12 + ((f34 - f12) * x1 >> multiple)));
 }
 

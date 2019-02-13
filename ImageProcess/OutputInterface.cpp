@@ -117,9 +117,79 @@ int _stdcall GenRotateImageInterface(uchar*data, uchar*outputData, const int wid
 {
 	if (channel != 1)
 		return FALSE;
+	ImageProcess src(data, width, height, channel);
+	Image dst(outputData, width, height, channel);
+	if (src.rotateImage(dst,rotateAngle,Point(rotateX,rotateY),mode))
+		return TRUE;
+	else
+		return FALSE;
+}
+
+//Í¼ÏñËõ·Å
+DLLEXPORT
+int _stdcall GenZoomImageInterface(uchar * data, const int width, const int height, const int channel, uchar*outData, int outWidth, int outHeight, int outChannel, double ratio, int mode)
+{
+	if (channel != 1)
+		return FALSE;
+	Image src(data, width, height, channel);
+	Image dst(outData, outWidth, outHeight, outChannel);
+	if (ImageProcess::zoomImage(src,dst,ratio,mode))
+		return TRUE;
+	else
+		return FALSE;
+}
+
+///Í¼ÏñÆ½ÒÆ
+DLLEXPORT
+int _stdcall GenLevelMoveImageInterface(uchar*data, uchar*outputData, const int width, const int height, const int channel, const int x, const int y)
+{
+	if (channel != 1)
+		return FALSE;
 	Image src(data, width, height, channel);
 	Image dst(outputData, width, height, channel);
-	if (ImageProcess::rotateImage(src,dst,rotateAngle,Point(rotateX,rotateY),mode))
+	if (ImageProcess::levelMove(src, dst, x, y))
+		return TRUE;
+	else
+		return FALSE;
+}
+
+///Í¼Ïñ·­×ª
+DLLEXPORT
+int _stdcall GenTurnOverImageInterface(uchar*data, uchar*outputData, const int width, const int height, const int channel, const int mode)
+{
+	if (channel != 1)
+		return FALSE;
+	Image src(data, width, height, channel);
+	Image dst(outputData, width, height, channel);
+	if (ImageProcess::turnOver(src, dst, mode))
+		return TRUE;
+	else
+		return FALSE;
+}
+
+///Í¼Ïñ×ªÖÃ
+DLLEXPORT
+int _stdcall GenTransPositionImageInterface(uchar*data, uchar*outputData, const int width, const int height, const int channel)
+{
+	if (channel != 1)
+		return FALSE;
+	Image src(data, width, height, channel);
+	Image dst(outputData, height, width, channel);
+	if (ImageProcess::transPosition(src, dst))
+		return TRUE;
+	else
+		return FALSE;
+}
+
+//Í¼ÏñÂË²¨
+DLLEXPORT
+int _stdcall GenBlurImageInterface(uchar*data, uchar*outputData, const int width, const int height, const int channel, const int size)
+{
+	if (channel != 1)
+		return FALSE;
+	EnhanceImage src(data, width, height, channel);
+	Image dst(outputData, height, width, channel);
+	if (src.blurImage(dst,size))
 		return TRUE;
 	else
 		return FALSE;
