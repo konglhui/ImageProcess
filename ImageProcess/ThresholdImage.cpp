@@ -28,3 +28,21 @@ bool ThresholdImage::meanValueThreshold()
 }
 
 
+bool ThresholdImage::percentageThrshold(double value)
+{
+	if (channel != 1 || value < 0 || value>1)
+		return false;
+	int histVec[256];
+	genHist(histVec);
+	int count = width * height *value;
+	int sum = 0,i = 0;
+	while (sum>count)
+	{
+		sum += histVec[i];
+		i++;
+	}
+	threshold(i);
+	return true;
+}
+
+

@@ -15,8 +15,13 @@ public:
 
 	}
 	
+	//均值二值化
 	bool meanValueThreshold();
 	
+	//百分比阈值
+	bool percentageThrshold(double value);
+
+	//
 
 	~ThresholdImage();
 };
