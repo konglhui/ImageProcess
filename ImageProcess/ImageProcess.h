@@ -21,7 +21,8 @@ public:
 
 	//生成灰度直方图数据
 	bool genHist(double* histVec, const int & n);
-	
+	bool genHist(int* histVec);
+
 	//生成直方图图像
 	bool genHistImage(Image &new_image, const int &n);
 

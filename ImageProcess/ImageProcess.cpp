@@ -71,6 +71,19 @@ bool ImageProcess::genHist( double* histVec, const int& n)
 	}
 	return true;
 }
+bool ImageProcess::genHist(int* histVec)
+{
+	uchar* lineData;
+	for (int i = 0; i < height; ++i)
+	{
+		lineData = data + i * width;
+		for (int j = 0; j < width; ++j)
+		{
+			histVec[lineData[j]] ++;
+		}
+	}
+	return true;
+}
 
 
 bool ImageProcess::genHistImage(Image &newImage, const int& n)

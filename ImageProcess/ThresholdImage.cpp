@@ -2,10 +2,6 @@
 #include "ThresholdImage.h"
 
 
-ThresholdImage::ThresholdImage()
-{
-}
-
 ThresholdImage::~ThresholdImage()
 {
 }
