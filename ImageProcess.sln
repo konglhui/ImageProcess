@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2046
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageProcess", "ImageProcess\ImageProcess.vcxproj", "{35FCCE55-C038-47AB-B2B4-D830C0087733}"
 EndProject
@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageView", "ImageView\Imag
 	ProjectSection(ProjectDependencies) = postProject
 		{35FCCE55-C038-47AB-B2B4-D830C0087733} = {35FCCE55-C038-47AB-B2B4-D830C0087733}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImguiWindow", "ImguiWindow\ImguiWindow.vcxproj", "{236C1D73-5213-4462-92DE-46B3948A5178}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,16 @@ Global
 		{A9507A57-43C3-4647-9C79-548095BAB32A}.Release|x64.Build.0 = Release|Any CPU
 		{A9507A57-43C3-4647-9C79-548095BAB32A}.Release|x86.ActiveCfg = Release|Any CPU
 		{A9507A57-43C3-4647-9C79-548095BAB32A}.Release|x86.Build.0 = Release|Any CPU
+		{236C1D73-5213-4462-92DE-46B3948A5178}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{236C1D73-5213-4462-92DE-46B3948A5178}.Debug|x64.ActiveCfg = Debug|x64
+		{236C1D73-5213-4462-92DE-46B3948A5178}.Debug|x64.Build.0 = Debug|x64
+		{236C1D73-5213-4462-92DE-46B3948A5178}.Debug|x86.ActiveCfg = Debug|Win32
+		{236C1D73-5213-4462-92DE-46B3948A5178}.Debug|x86.Build.0 = Debug|Win32
+		{236C1D73-5213-4462-92DE-46B3948A5178}.Release|Any CPU.ActiveCfg = Release|Win32
+		{236C1D73-5213-4462-92DE-46B3948A5178}.Release|x64.ActiveCfg = Release|x64
+		{236C1D73-5213-4462-92DE-46B3948A5178}.Release|x64.Build.0 = Release|x64
+		{236C1D73-5213-4462-92DE-46B3948A5178}.Release|x86.ActiveCfg = Release|Win32
+		{236C1D73-5213-4462-92DE-46B3948A5178}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
