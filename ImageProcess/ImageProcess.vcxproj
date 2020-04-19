@@ -76,7 +76,7 @@
     <OutDir>..\bin\debug</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>..\bin\debug\</OutDir>
+    <OutDir>..\bin</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -84,7 +84,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\release\</OutDir>
+    <OutDir>..\bin</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -156,8 +156,10 @@
     <ClInclude Include="EnhanceImage.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImageProcess.h" />
+    <ClInclude Include="init.h" />
     <ClInclude Include="OutputInterface.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Steger.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ThresholdImage.h" />
   </ItemGroup>
@@ -173,6 +175,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Steger.cpp" />
     <ClCompile Include="ThresholdImage.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

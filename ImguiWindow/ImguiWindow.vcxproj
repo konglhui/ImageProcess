@@ -164,6 +164,11 @@
     <ClInclude Include="imgui\imgui_impl_opengl3.h" />
     <ClInclude Include="imgui\imgui_impl_show.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ImageProcess\ImageProcess.vcxproj">
+      <Project>{35fcce55-c038-47ab-b2b4-d830c0087733}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

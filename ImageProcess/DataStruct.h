@@ -1,9 +1,5 @@
 #pragma once
-
-#define  DLLEXPORT extern"C" _declspec(dllexport)
-#define IS_OK 1;
-#define IS_NG 0;
-constexpr double Pi = 3.1415926;
+#include "init.h"
 typedef unsigned char uchar;
 
 //图像单个像素数据结构
